@@ -43,7 +43,7 @@ channels:
           - $ref: '#/components/messages/ZrcZaakCreated'
           - $ref: '#/components/messages/ZrcZaakInformatieObjectenListed'
           - $ref: '#/components/messages/ZrcZaakObjectenListed'
-          - $ref: '#/components/messages/ZrcZaakOpschortingSet'
+          - $ref: '#/components/messages/ZrcZaakOpschortingUpdated'
           - $ref: '#/components/messages/ZrcZaakResultaatCreated'
           - $ref: '#/components/messages/ZrcZaakRolCreated'
           - $ref: '#/components/messages/ZrcZaakRollenListed'
@@ -674,15 +674,15 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakObject'
-    ZrcZaakOpschortingSet:
-      messageId: ZrcZaakOpschortingSet
+    ZrcZaakOpschortingUpdated:
+      messageId: ZrcZaakOpschortingUpdated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
           - type: object
             properties:
               type:
-                const: 'com.ritense.gzac.zrc.zaak.opschorting.set'
+                const: 'com.ritense.gzac.zrc.zaak.opschorting.updated'
               data:
                 type: object
                 required:
