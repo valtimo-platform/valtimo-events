@@ -30,6 +30,8 @@ channels:
           - $ref: '#/components/messages/NoteUpdated'
           - $ref: '#/components/messages/NoteViewed'
           - $ref: '#/components/messages/TaskCompleted'
+          - $ref: '#/components/messages/TaskAssigned'
+          - $ref: '#/components/messages/TaskUnassigned'
           - $ref: '#/components/messages/DrcDocumentInformatieObjectDownloaded'
           - $ref: '#/components/messages/DrcDocumentInformatieObjectViewed'
           - $ref: '#/components/messages/DrcDocumentCreated'
@@ -384,6 +386,52 @@ components:
                   resultId:
                     type: string
                     format: uuid
+                  result:
+                    $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+    TaskAssigned:
+      messageId: TaskCompleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.task.assigned
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                properties:
+                  resultType:
+                    const: 'com.ritense.valtimo.camunda.domain.CamundaTask'
+                  resultId:
+                    type: string
+                    format: uuid
+                  result:
+                    $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+    TaskUnassigned:
+      messageId: TaskCompleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.task.unassigned
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                properties:
+                  resultType:
+                    const: 'com.ritense.valtimo.camunda.domain.CamundaTask'
+                  resultId:
+                    type: string
+                    format: uuid
+                  result:
+                    $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
     DrcDocumentInformatieObjectDownloaded:
       messageId: DrcDocumentInformatieObjectDownloaded
       payload:
@@ -1041,5 +1089,318 @@ components:
         documentId:
           type: string
           format: uuid
+    'com.ritense.valtimo.camunda.domain.CamundaTask':
+      type: object
+      required:
+        - id
+        - revision
+        - priority
+        - identityLinks
+        - suspensionState
+        - variableInstances
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        execution:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        identityLinks:
+          type: array
+          items:
+            ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaIdentityLink'
+        caseExecutionId:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        caseInstanceId:
+          type: String
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        name:
+          type: string
+          examples:
+            - 'Sign document'
+        parentTask:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+        description:
+          type: string
+          examples:
+            - 'Description'
+        taskDefinitionKey:
+          type: string
+          examples:
+            - 'sign-document'
+        owner:
+          type: string
+        assignee:
+          type: string
+          examples:
+            - 'support@ritense.com'
+        delegationState:
+          type: string
+          enum:
+            - PENDING
+            - RESOLVED
+        priority:
+          type: integer
+        createTime:
+          type: string
+          format: date-time
+        lastUpdated:
+          type: string
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
+        followUpDate:
+          type: string
+          format: date-time
+        suspensionState:
+          type: integer
+        tenantId:
+          type: string
+        variableInstances:
+          type: array
+          items:
+            ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaVariableInstance'
+    'com.ritense.valtimo.camunda.domain.CamundaExecution':
+      type: object
+      required:
+        - id
+        - revision
+        - active
+        - concurrent
+        - scope
+        - eventScope
+        - suspensionState
+        - cachedEntityState
+        - sequenceCounter
+        - variableInstances
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        rootProcessInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        businessKey:
+          type: string
+        parent:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        superExecution:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        caseInstanceId:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        activityId:
+          type: string
+        activityInstanceId:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        active:
+          type: boolean
+        concurrent:
+          type: boolean
+        scope:
+          type: boolean
+        eventScope:
+          type: boolean
+        suspensionState:
+          type: integer
+        cachedEntityState:
+          type: integer
+        sequenceCounter:
+          type: integer
+          format: int64
+        tenantId:
+          type: string
+        variableInstances:
+          type: array
+          items:
+            ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaVariableInstance'
+    'com.ritense.valtimo.camunda.domain.CamundaProcessDefinition':
+      type: object
+      required:
+        - id
+        - key
+        - version
+        - isStartableInTaskList
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        category:
+          type: string
+        name:
+          type: string
+        key:
+          type: string
+        version:
+          type: integer
+        deploymentId:
+          type: string
+        resourceName:
+          type: string
+        diagramResourceName:
+          type: string
+        hasStartFormKey:
+          type: boolean
+        suspensionState:
+          type: integer
+        tenantId:
+          type: string
+        versionTag:
+          type: string
+        historyTimeToLive:
+          type: integer
+        isStartableInTaskList:
+          type: boolean
+    'com.ritense.valtimo.camunda.domain.CamundaIdentityLink':
+      type: object
+      required:
+        - id
+        - revision
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        groupId:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        task:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        tenantId:
+          type: string
+    'com.ritense.valtimo.camunda.domain.CamundaVariableInstance':
+      type: object
+      required:
+        - id
+        - revision
+        - serializerName
+        - name
+        - sequenceCounter
+        - isConcurrentLocal
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        serializerName:
+          type: string
+        name:
+          type: string
+        execution:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        caseExecutionId:
+          type: string
+        caseInstanceId:
+          type: string
+        task:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+        batchId:
+          type: string
+        byteArrayValue:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaByteArray'
+        doubleValue:
+          type: number
+          format: double
+        longValue:
+          type: integer
+          format: int64
+        textValue:
+          type: string
+        textValue2:
+          type: string
+        variableScopeId:
+          type: string
+        sequenceCounter:
+          type: integer
+          format: int64
+        isConcurrentLocal:
+          type: boolean
+        tenantId:
+          type: string
+    'com.ritense.valtimo.camunda.domain.CamundaByteArray':
+      type: object
+      required:
+        - id
+        - revision
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        name:
+          type: string
+        deploymentId:
+          type: string
+        bytes:
+          type: string
+          format: byte
+        generated:
+          type: boolean
+        tenantId:
+          type: string
+        type:
+          type: integer
+        createTime:
+          type: string
+          format: date-time
+        rootProcessInstanceId:
+          type: string
+        removalTime:
+          type: string
+          format: date-time
 
 defaultContentType: application/json
