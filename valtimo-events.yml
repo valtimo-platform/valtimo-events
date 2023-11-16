@@ -515,13 +515,13 @@ components:
                   - result
                 properties:
                   resultType:
-                    const: 'com.ritense.objecten-api.client.ObjectWrapper'
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
                   resultId:
                     type: string
                     examples:
                       - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
                   result:
-                    $ref: '#/components/schemas/com.ritense.objecten-api.client.ObjectWrapper'
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectDeleted:
       messageId: ObjectDeleted
       payload:
@@ -557,13 +557,13 @@ components:
                   - result
                 properties:
                   resultType:
-                    const: 'com.ritense.objecten-api.client.ObjectWrapper'
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
                   resultId:
                     type: string
                     examples:
                       - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
                   result:
-                    $ref: '#/components/schemas/com.ritense.objecten-api.client.ObjectWrapper'
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectsListed:
       messageId: ObjectsListed
       payload:
@@ -580,11 +580,11 @@ components:
                   - result
                 properties:
                   resultType:
-                    const: 'List<com.ritense.objecten-api.client.ObjectWrapper>'
+                    const: 'List<com.ritense.objectenapi.client.ObjectWrapper>'
                   result:
                     type: array
                     items:
-                      $ref: '#/components/schemas/com.ritense.objecten-api.client.ObjectWrapper'
+                      $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectsUpdated:
       messageId: ObjectsUpdated
       payload:
@@ -602,13 +602,13 @@ components:
                   - result
                 properties:
                   resultType:
-                    const: 'com.ritense.objecten-api.client.ObjectWrapper'
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
                   resultId:
                     type: string
                     examples:
                       - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
                   result:
-                    $ref: '#/components/schemas/com.ritense.objecten-api.client.ObjectWrapper'
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectsViewed:
       messageId: ObjectsViewed
       payload:
@@ -626,13 +626,13 @@ components:
                   - result
                 properties:
                   resultType:
-                    const: 'com.ritense.objecten-api.client.ObjectWrapper'
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
                   resultId:
                     type: string
                     examples:
                       - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
                   result:
-                    $ref: '#/components/schemas/com.ritense.objecten-api.client.ObjectWrapper'
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ZrcDocumentLinkedToZaak:
       messageId: ZrcDocumentLinkedToZaak
       payload:
@@ -921,15 +921,181 @@ components:
 
     'com.ritense.documentenapi.client.DocumentInformatieObject':
       type: object
+      properties:
+        url:
+          type: string
+          minLength: 1
+          maxLength: 1000
+        identificatie:
+          type: string
+          maxLength: 40
+        bronorganisatie:
+          type: string
+          maxLength: 9
+        creatiedatum:
+          type: string
+          format: date
+        titel:
+          type: string
+          maxLength: 200
+        vertrouwelijkheidaanduiding:
+          type: string
+          enum:
+            - openbaar
+            - beperkt_openbaar
+            - intern
+            - zaakvertrouwelijk
+            - vertrouwelijk
+            - confidentieel
+            - geheim
+            - zeer_geheim
+          examples:
+            - intern
+        auteur:
+          type: string
+          maxLength: 200
+        status:
+          enum:
+            - in_bewerking
+            - ter_vaststelling
+            - definitief
+            - gearchiveerd
+          examples:
+            - in_bewerking
+        formaat:
+          type: string
+          maxLength: 255
+          examples:
+            - application/msword
+        taal:
+          type: string
+          description:
+            'Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT
+                  is vastgelegd. Voorbeeld: `dut`. Zie: https://www.iso.org/standard/4767.html'
+          maxLength: 3
+          minLength: 3
+          examples:
+            - dut
+        versie:
+          type: integer
+          minimum: 1
+          examples:
+            - 1
+        beginRegistratie:
+          type: string
+          format: date-time
+        bestandsnaam:
+          type: string
+          maxLength: 255
+        bestandsomvang:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          examples:
+            - 9223372
+        link:
+          type: string
+          maxLength: 200
+        beschrijving:
+          type: string
+          maxLength: 1000
+        ontvangstdatum:
+          type: string
+          format: date
+        verzenddatum:
+          type: string
+          format: date
+        indicatieGebruiksrecht:
+          type: boolean
+          nullable: true
+
 
     'com.ritense.documentenapi.client.CreateDocumentResult':
       type: object
+      properties:
+        url:
+          type: string
+        auteur:
+          type: string
+        bestandsnaam:
+          type: string
+        bestandsomvang:
+          type: integer
+          format: int64
+          minimum: 0
+        beginRegistratie:
+          type: string
+          format: date-time
 
-    'com.ritense.objecten-api.client.ObjectWrapper':
+    com.ritense.objectenapi.client.ObjectWrapper:
       type: object
+      properties:
+        url:
+          type: string
+        uuid:
+          type: string
+          format: uuid
+        type:
+          type: string
+        record:
+          $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectRecord'
+
+    'com.ritense.objectenapi.client.ObjectRecord':
+      type: object
+      properties:
+        index:
+          type: integer
+          minimum: 0
+        typeVersion:
+          type: integer
+          minimum: 0
+        data:
+          type: object
+        geometry:
+          type: object
+          properties:
+            type:
+              type: string
+            coordinates:
+              type: array
+              items:
+                type: integer
+        startAt:
+          type: string
+          format: date
+        endAt:
+          type: string
+          format: date
+        registrationAt:
+          type: string
+          format: date
+        correctionFor:
+          type: string
+        correctedBy:
+          type: string
 
     'com.ritense.zakenapi.client.LinkDocumentResult':
       type: object
+      properties:
+        url:
+          type: string
+        uuid:
+          type: string
+          format: uuid
+        informatieobject:
+          type: string
+        zaak:
+          type: string
+        aardRelatieWeergave:
+          type: string
+        titel:
+          type: string
+        beschrijving:
+          type: string
+        registratiedatum:
+          type: string
+          format: date-time
 
     'com.ritense.zakenapi.domain.CreateZaakResponse':
       type: object
