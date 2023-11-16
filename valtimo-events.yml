@@ -939,29 +939,12 @@ components:
           type: string
           maxLength: 200
         vertrouwelijkheidaanduiding:
-          type: string
-          enum:
-            - openbaar
-            - beperkt_openbaar
-            - intern
-            - zaakvertrouwelijk
-            - vertrouwelijk
-            - confidentieel
-            - geheim
-            - zeer_geheim
-          examples:
-            - intern
+          $ref: '#/components/schemas/DocumentVertrouwelijkheid'
         auteur:
           type: string
           maxLength: 200
         status:
-          enum:
-            - in_bewerking
-            - ter_vaststelling
-            - definitief
-            - gearchiveerd
-          examples:
-            - in_bewerking
+          $ref: '#/components/schemas/DocumentStatus'
         formaat:
           type: string
           maxLength: 255
@@ -1010,6 +993,37 @@ components:
           type: boolean
           nullable: true
 
+    DocumentVertrouwelijkheid:
+      type: string
+      enum:
+        - openbaar
+        - beperkt_openbaar
+        - intern
+        - zaakvertrouwelijk
+        - vertrouwelijk
+        - confidentieel
+        - geheim
+        - zeer_geheim
+      examples:
+        - intern
+    DocumentStatus:
+      enum:
+        - in_bewerking
+        - ter_vaststelling
+        - definitief
+        - gearchiveerd
+      examples:
+        - in_bewerking
+
+    ObjectGeometry:
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: integer
 
     'com.ritense.documentenapi.client.CreateDocumentResult':
       type: object
@@ -1053,14 +1067,7 @@ components:
         data:
           type: object
         geometry:
-          type: object
-          properties:
-            type:
-              type: string
-            coordinates:
-              type: array
-              items:
-                type: integer
+          $ref: '#/components/schemas/ObjectGeometry'
         startAt:
           type: string
           format: date
