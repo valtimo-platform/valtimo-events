@@ -389,7 +389,7 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
     TaskAssigned:
-      messageId: TaskCompleted
+      messageId: TaskAssigned
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -411,7 +411,7 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
     TaskUnassigned:
-      messageId: TaskCompleted
+      messageId: TaskUnassigned
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -1123,7 +1123,7 @@ components:
           examples:
             - '85d4b338-795e-11ee-99a0-4eda5230440f'
         caseInstanceId:
-          type: String
+          type: string
           format: uuid
           examples:
             - '85d4b338-795e-11ee-99a0-4eda5230440f'
