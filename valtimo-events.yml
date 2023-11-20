@@ -1006,6 +1006,7 @@ components:
         - zeer_geheim
       examples:
         - intern
+
     DocumentStatus:
       enum:
         - in_bewerking
@@ -1014,6 +1015,15 @@ components:
         - gearchiveerd
       examples:
         - in_bewerking
+
+    DocumentBetalingsindicatie:
+      enum:
+        - nvt
+        - nog_niet
+        - gedeeltelijk
+        - geheel
+      examples:
+        - nog_niet
 
     ObjectGeometry:
       type: object
@@ -1024,6 +1034,55 @@ components:
           type: array
           items:
             type: integer
+
+    ObjectVerlenging:
+      type: object
+      properties:
+        reden:
+          type: string
+        duur:
+          type: string
+
+    ObjectOpschorting:
+      type: object
+      properties:
+        indicatie:
+          type: string
+        reden:
+          type: string
+
+    ObjectRelevanteZaak:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        aardRelatie:
+          type: string
+
+    ObjectKenmerk:
+      type: object
+      properties:
+        kenmerk:
+          type: string
+        bron:
+          type: string
+
+    ObjectArchiefnominatie:
+      enum:
+        - blijvend_bewaren
+        - vernietigen
+      examples:
+        - blijvend_bewaren
+
+    ObjectArchiefStatus:
+      enum:
+        - nog_te_archiveren
+        - gearchiveerd
+        - gearchiveerd_procestermijn_onbekend
+        - overgedragen
+      examples:
+        - overgedragen
 
     'com.ritense.documentenapi.client.CreateDocumentResult':
       type: object
@@ -1127,6 +1186,136 @@ components:
 
     'com.ritense.zakenapi.domain.ZaakResponse':
       type: object
+      required:
+        - url
+        - uuid
+        - bronorganisatie
+        - zaaktype
+        - verantwoordelijkeOrganisatie
+        - startDatum
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        identificatie:
+          type: string
+        bronorganisatie:
+          type: string
+        omschrijving:
+          type: string
+        toelichting:
+          type: string
+        zaaktype:
+          type: string
+          format: uri
+        registratiedatum:
+          type: string
+          format: date
+        verantwoordelijkeOrganisatie:
+          type: string
+        startDatum:
+          type: string
+          format: date
+        einddatum:
+          type: string
+          format: date
+        einddatumGepland:
+          type: string
+          format: date
+        uiterlijkeEinddatumAfdoening:
+          type: string
+          format: date
+        publicatiedatum:
+          type: string
+          format: date
+        communicatiekanaal:
+          type: string
+          format: uri
+        productenOfDiensten:
+          type: array
+          items:
+            type: string
+            format: uri
+        vertrouwelijkheidaanduiding:
+          $ref: '#/components/schemas/DocumentVertrouwelijkheid'
+        betalingsindicatie:
+          $ref: '#/components/schemas/DocumentBetalingsindicatie'
+        betalingsindicatieWeergave:
+          type: string
+        laatsteBetaaldatum:
+          type: string
+          format: date
+        zaakgeometrie:
+          $ref: '#/components/schemas/ObjectGeometry'
+        verlenging:
+          $ref: '#/components/schemas/ObjectVerlenging'
+        opschorting:
+          $ref: '#/components/schemas/ObjectOpschorting'
+        selectielijstklasse:
+          type: string
+          format: uri
+        hoofdzaak:
+          type: string
+          format: uri
+        deelzaken:
+          type: array
+          items:
+            type: string
+            format: uri
+        relevanteAndereZaken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectRelevanteZaak'
+        eigenschappen:
+          type: array
+          items:
+            type: string
+            format: uri
+        rollen:
+          type: array
+          items:
+            type: string
+            format: uri
+        status:
+          type: string
+        zaakinformatieobjecten:
+          type: array
+          items:
+            type: string
+            format: uri
+        zaakobjecten:
+          type: array
+          items:
+            type: string
+            format: uri
+        kenmerken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectKenmerk'
+        archiefnominatie:
+          $ref: '#/components/schemas/ObjectArchiefnominatie'
+        archiefstatus:
+          $ref: '#/components/schemas/ObjectArchiefStatus'
+        archiefactiedatum:
+          type: string
+          format: date
+        resultaat:
+          type: string
+          format: uri
+        opdrachtgevendeOrganisatie:
+          type: string
+        processobjectaard:
+          type: string
+        resultaattoelichting:
+          type: string
+        startdatumBewaartermijn:
+          type: string
+          format: date
 
     'com.ritense.valtimo.formflow.event.FormFlowStepCompletedResult':
       type: object
