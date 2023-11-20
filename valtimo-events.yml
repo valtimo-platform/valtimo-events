@@ -1068,6 +1068,29 @@ components:
         bron:
           type: string
 
+    ObjectBetrokkeneType:
+      enum:
+        - natuurlijk_persoon
+        - niet_natuurlijk_persoon
+        - vestiging
+        - organisatorische_eenheid
+        - medewerker
+      examples:
+        - natuurlijk_persoon
+
+    ObjectZaakRolOmschrijving:
+      enum:
+        - adviseur
+        - behandelaar
+        - belanghebbende
+        - beslisser
+        - initiator
+        - klantcontacter
+        - zaakcoordinator
+        - mede_initiator
+      examples:
+        - beslisser
+
     ObjectArchiefnominatie:
       enum:
         - blijvend_bewaren
@@ -1180,6 +1203,40 @@ components:
 
     'com.ritense.zakenapi.domain.rol.Rol':
       type: object
+      required:
+        - zaak
+        - betrokkeneType
+        - roltype
+        - roltoelichting
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        betrokkene:
+          type: string
+          format: uri
+        betrokkeneType:
+          $ref: '#/components/schemas/ObjectBetrokkeneType'
+        roltype:
+          type: string
+          format: uri
+        omschrijving:
+          type: string
+        omschrijvingGeneriek:
+          $ref: '#/components/schemas/ObjectZaakRolOmschrijving'
+        roltoelichting:
+          type: string
+        registratiedatum:
+          type: string
+          format: date-time
 
     'com.ritense.zakenapi.domain.CreateZaakStatusResponse':
       type: object
