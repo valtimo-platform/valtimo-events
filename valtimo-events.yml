@@ -1197,6 +1197,108 @@ components:
 
     'com.ritense.zakenapi.domain.ZaakopschortingResponse':
       type: object
+      required:
+        - url
+        - uuid
+        - identificatie
+        - bronorganisatie
+        - omschrijving
+        - toelichting
+        - zaaktype
+        - registratiedatum
+        - verantwoordelijkeOrganisatie
+        - startdatum
+        - communicatiekanaal
+        - productOfDiensten
+        - vertrouwelijkheidaanduiding
+        - betalingsindicatie
+        - betalingsindicatieWeergave
+        - selectielijstklasse
+        - deelzaken
+        - relevanteAndereZaken
+        - eigenschappen
+        - kenmerken
+        - archiefstatus
+        - opdrachtgevendeOrganisatie
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        identificatie:
+          type: string
+        bronorganisatie:
+          type: string
+        omschrijving:
+          type: string
+        toelichting:
+          type: string
+        zaaktype:
+          type: string
+        registratiedatum:
+          type: string
+        verantwoordelijkeOrganisatie:
+          type: string
+        startdatum:
+          type: string
+        einddatum:
+          type: string
+        einddatumGepland:
+          type: string
+        uiterlijkeEinddatumAfdoening:
+          type: string
+        publicatiedatum:
+          type: string
+        communicatiekanaal:
+          type: string
+        productenOfDiensten:
+          type: array
+          items:
+            type: string
+        vertrouwelijkheidaanduiding:
+          type: string
+        betalingsindicatie:
+          type: string
+        betalingsindicatieWeergave:
+          type: string
+        laatsteBetaaldatum:
+          type: string
+        zaakgeometrie:
+          type: string
+        verlenging:
+          $ref: '#/components/schemas/ObjectVerlenging'
+        opschorting:
+          $ref: '#/components/schemas/ObjectOpschorting'
+        selectielijstklasse:
+          type: string
+        hoofdzaak:
+          type: string
+        deelzaken:
+          type: string
+        relevanteAndereZaken:
+          type: string
+        eigenschappen:
+          type: string
+        status:
+          type: string
+        kenmerken:
+          type: array
+          items:
+            type: string
+        archiefnominatie:
+          type: string
+        archiefstatus:
+          type: string
+        archiefactiedatum:
+          type: string
+        resultaat:
+          type: string
+        opdrachtgevendeOrganisatie:
+          type: string
 
     'com.ritense.zakenapi.domain.CreateZaakResultaatResponse':
       type: object
