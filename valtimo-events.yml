@@ -1194,6 +1194,33 @@ components:
 
     'com.ritense.zakenapi.domain.ZaakObject':
       type: object
+      required:
+        - url
+        - uuid
+        - zaak
+        - object
+        - objectType
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        object:
+          type: string
+          format: uri
+        objectType:
+          type: string
+        objectTypeOverige:
+          type: string
+        relatieomschrijving:
+          type: string
 
     'com.ritense.zakenapi.domain.ZaakopschortingResponse':
       type: object
