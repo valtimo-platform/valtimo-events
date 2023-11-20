@@ -55,7 +55,6 @@ channels:
 components:
   messages:
     DocumentAssigned:
-      messageId: DocumentAssigned
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -80,7 +79,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
     DocumentCreated:
-      messageId: DocumentCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -105,7 +103,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
     DocumentDeleted:
-      messageId: DocumentDeleted
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -127,7 +124,6 @@ components:
                     examples:
                       - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
     DocumentsListed:
-      messageId: DocumentsListed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -148,7 +144,6 @@ components:
                     items:
                       $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
     DocumentUpdated:
-      messageId: DocumentUpdated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -173,7 +168,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
     DocumentViewed:
-      messageId: DocumentViewed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -198,7 +192,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
     DocumentUnassigned:
-      messageId: DocumentUnassigned
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -223,7 +216,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
     FormFlowStepCompleted:
-      messageId: FormFlowStepCompleted
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -249,7 +241,6 @@ components:
                     $ref: '#/components/schemas/com.ritense.valtimo.formflow.event.FormFlowStepCompletedResult'
 
     NoteCreated:
-      messageId: NoteCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -274,7 +265,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.Note'
     NoteDeleted:
-      messageId: NoteDeleted
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -296,7 +286,6 @@ components:
                     examples:
                       - '721b362b-8a02-44fb-8d41-647c99ea3541'
     NotesListed:
-      messageId: NotesListed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -317,7 +306,6 @@ components:
                     items:
                       $ref: '#/components/schemas/com.ritense.document.domain.Note'
     NoteUpdated:
-      messageId: NoteUpdated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -342,7 +330,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.Note'
     NoteViewed:
-      messageId: NoteViewed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -367,7 +354,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.document.domain.Note'
     TaskCompleted:
-      messageId: TaskCompleted
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -389,7 +375,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
     TaskAssigned:
-      messageId: TaskAssigned
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -411,7 +396,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
     TaskUnassigned:
-      messageId: TaskUnassigned
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -433,7 +417,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
     DrcDocumentInformatieObjectDownloaded:
-      messageId: DrcDocumentInformatieObjectDownloaded
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -451,7 +434,6 @@ components:
                     examples:
                       - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
     DrcDocumentInformatieObjectViewed:
-      messageId: DrcDocumentInformatieObjectViewed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -475,7 +457,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.documentenapi.client.DocumentInformatieObject'
     DrcDocumentCreated:
-      messageId: DrcDocumentCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -499,7 +480,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.documentenapi.client.CreateDocumentResult'
     ObjectCreated:
-      messageId: ObjectCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -523,7 +503,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectDeleted:
-      messageId: ObjectDeleted
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -541,7 +520,6 @@ components:
                     examples:
                       - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
     ObjectPatched:
-      messageId: ObjectPatched
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -565,7 +543,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectsListed:
-      messageId: ObjectsListed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -586,7 +563,6 @@ components:
                     items:
                       $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectsUpdated:
-      messageId: ObjectsUpdated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -610,7 +586,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ObjectsViewed:
-      messageId: ObjectsViewed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -634,7 +609,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
     ZrcDocumentLinkedToZaak:
-      messageId: ZrcDocumentLinkedToZaak
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -657,7 +631,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.zakenapi.client.LinkDocumentResult'
     ZrcZaakCreated:
-      messageId: ZrcZaakCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -681,7 +654,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.zakenapi.domain.CreateZaakResponse'
     ZrcZaakInformatieObjectenListed:
-      messageId: ZrcZaakInformatieObjectenListed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -702,7 +674,6 @@ components:
                     items:
                       $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakInformatieObject'
     ZrcZaakObjectenListed:
-      messageId: ZrcZaakObjectenListed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -723,7 +694,6 @@ components:
                     items:
                       $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakObject'
     ZrcZaakOpschortingUpdated:
-      messageId: ZrcZaakOpschortingUpdated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -747,7 +717,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakopschortingResponse'
     ZrcZaakResultaatCreated:
-      messageId: ZrcZaakResultaatCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -771,7 +740,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.zakenapi.domain.CreateZaakResultaatResponse'
     ZrcZaakRolCreated:
-      messageId: ZrcZaakRolCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -795,7 +763,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.zakenapi.domain.rol.Rol'
     ZrcZaakRollenListed:
-      messageId: ZrcZaakRollenListed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -816,7 +783,6 @@ components:
                     items:
                       $ref: '#/components/schemas/com.ritense.zakenapi.domain.rol.Rol'
     ZrcZaakStatusCreated:
-      messageId: ZrcZaakStatusCreated
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
@@ -840,7 +806,6 @@ components:
                   result:
                     $ref: '#/components/schemas/com.ritense.zakenapi.domain.CreateZaakStatusResponse'
     ZrcZaakViewed:
-      messageId: ZrcZaakViewed
       payload:
         allOf:
           - $ref: '#/components/schemas/CloudEvent'
