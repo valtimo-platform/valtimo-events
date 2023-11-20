@@ -1200,6 +1200,28 @@ components:
 
     'com.ritense.zakenapi.domain.CreateZaakResultaatResponse':
       type: object
+      required:
+        - url
+        - uuid
+        - zaak
+        - resultaattype
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        resultaattype:
+          type: string
+          format: uri
+        toelichting:
+          type: string
 
     'com.ritense.zakenapi.domain.rol.Rol':
       type: object
