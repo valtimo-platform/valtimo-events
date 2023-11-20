@@ -1188,6 +1188,114 @@ components:
 
     'com.ritense.zakenapi.domain.CreateZaakResponse':
       type: object
+      required:
+        - url
+        - uuid
+        - bronorganisatie
+        - zaaktype
+        - verantwoordelijkeOrganisatie
+        - startdatum
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        identificatie:
+          type: string
+        bronorganisatie:
+          type: string
+        omschrijving:
+          type: string
+        toelichting:
+          type: string
+        zaaktype:
+          type: string
+          format: uri
+        registratiedatum:
+          type: string
+          format: date
+        verantwoordelijkeOrganisatie:
+          type: string
+        startDatum:
+          type: string
+          format: date
+        einddatum:
+          type: string
+          format: date
+        einddatumGepland:
+          type: string
+          format: date
+        uiterlijkeEinddatumAfdoening:
+          type: string
+          format: date
+        publicatiedatum:
+          type: string
+          format: date
+        communicatiekanaal:
+          type: string
+          format: uri
+        productenOfDiensten:
+          type: array
+          items:
+            type: string
+            format: uri
+        vertrouwelijkheidaanduiding:
+          $ref: '#/components/schemas/DocumentVertrouwelijkheid'
+        betalingsindicatie:
+          $ref: '#/components/schemas/DocumentBetalingsindicatie'
+        betalingsindicatieWeergave:
+          type: string
+        laatsteBetaaldatum:
+          type: string
+          format: date
+        zaakgeometrie:
+          $ref: '#/components/schemas/ObjectGeometry'
+        verlenging:
+          $ref: '#/components/schemas/ObjectVerlenging'
+        opschorting:
+          $ref: '#/components/schemas/ObjectOpschorting'
+        selectielijstklasse:
+          type: string
+          format: uri
+        hoofdzaak:
+          type: string
+          format: uri
+        deelzaken:
+          type: array
+          items:
+            type: string
+            format: uri
+        relevanteAndereZaken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectRelevanteZaak'
+        eigenschappen:
+          type: array
+          items:
+            type: string
+            format: uri
+        status:
+          type: string
+        kenmerken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectKenmerk'
+        archiefnominatie:
+          $ref: '#/components/schemas/ObjectArchiefnominatie'
+        archiefstatus:
+          $ref: '#/components/schemas/ObjectArchiefStatus'
+        archiefactiedatum:
+          type: string
+          format: date
+        resultaat:
+          type: string
+          format: uri
+        opdrachtgevendeOrganisatie:
+          type: string
 
     'com.ritense.zakenapi.domain.ZaakInformatieObject':
       type: object
@@ -1689,6 +1797,7 @@ components:
                   - PREVIOUS
                   - NEXT
                   - SUPPORTING
+
     'com.ritense.document.domain.Note':
       type: object
       required:
@@ -1722,6 +1831,7 @@ components:
         documentId:
           type: string
           format: uuid
+
     'com.ritense.valtimo.camunda.domain.CamundaTask':
       type: object
       required:
@@ -1807,6 +1917,7 @@ components:
           type: array
           items:
             ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaVariableInstance'
+
     'com.ritense.valtimo.camunda.domain.CamundaExecution':
       type: object
       required:
@@ -1874,6 +1985,7 @@ components:
           type: array
           items:
             ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaVariableInstance'
+
     'com.ritense.valtimo.camunda.domain.CamundaProcessDefinition':
       type: object
       required:
@@ -1916,6 +2028,7 @@ components:
           type: integer
         isStartableInTaskList:
           type: boolean
+
     'com.ritense.valtimo.camunda.domain.CamundaIdentityLink':
       type: object
       required:
@@ -1942,6 +2055,7 @@ components:
           ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
         tenantId:
           type: string
+
     'com.ritense.valtimo.camunda.domain.CamundaVariableInstance':
       type: object
       required:
@@ -1999,6 +2113,7 @@ components:
           type: boolean
         tenantId:
           type: string
+
     'com.ritense.valtimo.camunda.domain.CamundaByteArray':
       type: object
       required:
