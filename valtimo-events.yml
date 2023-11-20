@@ -1191,6 +1191,43 @@ components:
 
     'com.ritense.zakenapi.domain.ZaakInformatieObject':
       type: object
+      required:
+        - url
+        - uuid
+        - informatieobject
+        - zaak
+        - aardRelatieWeergave
+        - registratiedatum
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        informatieobject:
+          type: string
+          format: uri
+        zaak:
+          type: string
+          format: uri
+        aardRelatieWeergave:
+          type: string
+        titel:
+          type: string
+        beschrijving:
+          type: string
+        registratiedatum:
+          type: string
+          format: date-time
+        vernietigingsdatum:
+          type: string
+          format: date-time
+        status:
+          type: string
+          format: uri
 
     'com.ritense.zakenapi.domain.ZaakObject':
       type: object
