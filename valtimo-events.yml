@@ -1183,6 +1183,32 @@ components:
 
     'com.ritense.zakenapi.domain.CreateZaakStatusResponse':
       type: object
+      required:
+        - url
+        - uuid
+        - zaak
+        - statustype
+        - datumStatusGezet
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        statustype:
+          type: string
+          format: uri
+        datumStatusGezet:
+          type: string
+          format: date-time
+        statustoelichting:
+          type: string
 
     'com.ritense.zakenapi.domain.ZaakResponse':
       type: object
