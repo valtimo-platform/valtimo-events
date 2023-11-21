@@ -1,0 +1,2154 @@
+asyncapi: 2.6.0
+id: 'valtimo-events:1'
+info:
+  title: Valtimo Events
+  description: This specification describes all events emitted by Valtimo.
+  version: '1.0.0'
+  license:
+    name: EUPL-1.2
+    url: https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+  contact:
+    name: API Support
+    url: https://www.ritense.com/contact
+    email: support@ritense.com
+channels:
+  valtimo-audit:
+    publish:
+      message:
+        oneOf:
+          - $ref: '#/components/messages/DocumentAssigned'
+          - $ref: '#/components/messages/DocumentCreated'
+          - $ref: '#/components/messages/DocumentDeleted'
+          - $ref: '#/components/messages/DocumentsListed'
+          - $ref: '#/components/messages/DocumentUpdated'
+          - $ref: '#/components/messages/DocumentViewed'
+          - $ref: '#/components/messages/DocumentUnassigned'
+          - $ref: '#/components/messages/FormFlowStepCompleted'
+          - $ref: '#/components/messages/NoteCreated'
+          - $ref: '#/components/messages/NoteDeleted'
+          - $ref: '#/components/messages/NotesListed'
+          - $ref: '#/components/messages/NoteUpdated'
+          - $ref: '#/components/messages/NoteViewed'
+          - $ref: '#/components/messages/TaskCompleted'
+          - $ref: '#/components/messages/TaskAssigned'
+          - $ref: '#/components/messages/TaskUnassigned'
+          - $ref: '#/components/messages/DrcDocumentInformatieObjectDownloaded'
+          - $ref: '#/components/messages/DrcDocumentInformatieObjectViewed'
+          - $ref: '#/components/messages/DrcDocumentCreated'
+          - $ref: '#/components/messages/ObjectCreated'
+          - $ref: '#/components/messages/ObjectDeleted'
+          - $ref: '#/components/messages/ObjectPatched'
+          - $ref: '#/components/messages/ObjectsListed'
+          - $ref: '#/components/messages/ObjectsUpdated'
+          - $ref: '#/components/messages/ObjectsViewed'
+          - $ref: '#/components/messages/ZrcDocumentLinkedToZaak'
+          - $ref: '#/components/messages/ZrcZaakCreated'
+          - $ref: '#/components/messages/ZrcZaakInformatieObjectenListed'
+          - $ref: '#/components/messages/ZrcZaakObjectenListed'
+          - $ref: '#/components/messages/ZrcZaakOpschortingUpdated'
+          - $ref: '#/components/messages/ZrcZaakResultaatCreated'
+          - $ref: '#/components/messages/ZrcZaakRolCreated'
+          - $ref: '#/components/messages/ZrcZaakRollenListed'
+          - $ref: '#/components/messages/ZrcZaakStatusCreated'
+          - $ref: '#/components/messages/ZrcZaakViewed'
+
+components:
+  messages:
+    DocumentAssigned:
+      name: DocumentAssigned
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.document.assigned
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.impl.JsonSchemaDocument'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
+    DocumentCreated:
+      name: DocumentCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.document.created
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.impl.JsonSchemaDocument'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
+    DocumentDeleted:
+      name: DocumentDeleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.document.deleted
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.impl.JsonSchemaDocument'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
+    DocumentsListed:
+      name: DocumentsListed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.document.listed
+              data:
+                type: object
+                required:
+                  - resultType
+                  - result
+                properties:
+                  resultType:
+                    const: 'List<com.ritense.document.domain.impl.JsonSchemaDocument>'
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
+    DocumentUpdated:
+      name: DocumentUpdated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.document.updated
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.impl.JsonSchemaDocument'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
+    DocumentViewed:
+      name: DocumentViewed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.document.viewed
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.impl.JsonSchemaDocument'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
+    DocumentUnassigned:
+      name: DocumentUnassigned
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.document.unassigned
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.impl.JsonSchemaDocument'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.impl.JsonSchemaDocument'
+    FormFlowStepCompleted:
+      name: FormFlowStepCompleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.formflow.step.completed
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.valtimo.formflow.event.FormFlowStepCompletedResult'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.valtimo.formflow.event.FormFlowStepCompletedResult'
+
+    NoteCreated:
+      name: NoteCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.note.created
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.Note'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - '721b362b-8a02-44fb-8d41-647c99ea3541'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.Note'
+    NoteDeleted:
+      name: NoteDeleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.note.deleted
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.Note'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - '721b362b-8a02-44fb-8d41-647c99ea3541'
+    NotesListed:
+      name: NotesListed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.note.listed
+              data:
+                type: object
+                required:
+                  - resultType
+                  - result
+                properties:
+                  resultType:
+                    const: 'List<com.ritense.document.domain.Note>'
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/com.ritense.document.domain.Note'
+    NoteUpdated:
+      name: NoteUpdated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.note.updated
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.Note'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - '721b362b-8a02-44fb-8d41-647c99ea3541'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.Note'
+    NoteViewed:
+      name: NoteViewed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.note.viewed
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.document.domain.Note'
+                  resultId:
+                    type: string
+                    format: uuid
+                    examples:
+                      - '721b362b-8a02-44fb-8d41-647c99ea3541'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.document.domain.Note'
+    TaskCompleted:
+      name: TaskCompleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.task.completed
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                properties:
+                  resultType:
+                    const: 'com.ritense.valtimo.camunda.domain.CamundaTask'
+                  resultId:
+                    type: string
+                    format: uuid
+                  result:
+                    $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+    TaskAssigned:
+      name: TaskAssigned
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.task.assigned
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                properties:
+                  resultType:
+                    const: 'com.ritense.valtimo.camunda.domain.CamundaTask'
+                  resultId:
+                    type: string
+                    format: uuid
+                  result:
+                    $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+    TaskUnassigned:
+      name: TaskUnassigned
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.valtimo.task.unassigned
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                properties:
+                  resultType:
+                    const: 'com.ritense.valtimo.camunda.domain.CamundaTask'
+                  resultId:
+                    type: string
+                    format: uuid
+                  result:
+                    $ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+    DrcDocumentInformatieObjectDownloaded:
+      name: DrcDocumentInformatieObjectDownloaded
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.gzac.drc.enkelvoudiginformatieobject.downloaded
+              data:
+                type: object
+                required:
+                  - resultId
+                properties:
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+    DrcDocumentInformatieObjectViewed:
+      name: DrcDocumentInformatieObjectViewed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.gzac.drc.enkelvoudiginformatieobject.viewed
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.documentenapi.client.DocumentInformatieObject'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.documentenapi.client.DocumentInformatieObject'
+    DrcDocumentCreated:
+      name: DrcDocumentCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.gzac.drc.document.created
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.documentenapi.client.CreateDocumentResult'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.documentenapi.client.CreateDocumentResult'
+    ObjectCreated:
+      name: ObjectCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.gzac.objecten-api.object.created
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
+    ObjectDeleted:
+      name: ObjectDeleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.gzac.objecten-api.object.deleted
+              data:
+                type: object
+                required:
+                  - resultId
+                properties:
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+    ObjectPatched:
+      name: ObjectPatched
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: com.ritense.gzac.objecten-api.object.patched
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
+    ObjectsListed:
+      name: ObjectsListed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.objecten-api.object.listed'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - result
+                properties:
+                  resultType:
+                    const: 'List<com.ritense.objectenapi.client.ObjectWrapper>'
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
+    ObjectsUpdated:
+      name: ObjectsUpdated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.objecten-api.object.updated'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
+    ObjectsViewed:
+      name: ObjectsViewed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.objecten-api.object.viewed'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.objectenapi.client.ObjectWrapper'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectWrapper'
+    ZrcDocumentLinkedToZaak:
+      name: ZrcDocumentLinkedToZaak
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaakinformatieobject.linked'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.zakenapi.client.LinkDocumentResult'
+                  resultId:
+                    type: string
+                    format: uuid
+                  result:
+                    $ref: '#/components/schemas/com.ritense.zakenapi.client.LinkDocumentResult'
+    ZrcZaakCreated:
+      name: ZrcZaakCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaak.created'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.zakenapi.domain.CreateZaakResponse'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.zakenapi.domain.CreateZaakResponse'
+    ZrcZaakInformatieObjectenListed:
+      name: ZrcZaakInformatieObjectenListed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaakinformatieobject.listed'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - result
+                properties:
+                  resultType:
+                    const: 'List<com.ritense.zakenapi.domain.ZaakInformatieObject>'
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakInformatieObject'
+    ZrcZaakObjectenListed:
+      name: ZrcZaakObjectenListed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaakobject.listed'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - result
+                properties:
+                  resultType:
+                    const: 'List<com.ritense.zakenapi.domain.ZaakObject>'
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakObject'
+    ZrcZaakOpschortingUpdated:
+      name: ZrcZaakOpschortingUpdated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaak.opschorting.updated'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.zakenapi.domain.ZaakopschortingResponse'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakopschortingResponse'
+    ZrcZaakResultaatCreated:
+      name: ZrcZaakResultaatCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaakresultaat.created'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.zakenapi.domain.CreateZaakResultaatResponse'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.zakenapi.domain.CreateZaakResultaatResponse'
+    ZrcZaakRolCreated:
+      name: ZrcZaakRolCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.rol.created'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.zakenapi.domain.rol.Rol'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.zakenapi.domain.rol.Rol'
+    ZrcZaakRollenListed:
+      name: ZrcZaakRollenListed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.rol.listed'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - result
+                properties:
+                  resultType:
+                    const: 'List<com.ritense.zakenapi.domain.rol.Rol>'
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/com.ritense.zakenapi.domain.rol.Rol'
+    ZrcZaakStatusCreated:
+      name: ZrcZaakStatusCreated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaakstatus.created'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.zakenapi.domain.CreateZaakStatusResponse'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.zakenapi.domain.CreateZaakStatusResponse'
+    ZrcZaakViewed:
+      name: ZrcZaakViewed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CloudEvent'
+          - type: object
+            properties:
+              type:
+                const: 'com.ritense.gzac.zrc.zaak.viewed'
+              data:
+                type: object
+                required:
+                  - resultType
+                  - resultId
+                  - result
+                properties:
+                  resultType:
+                    const: 'com.ritense.zakenapi.domain.ZaakResponse'
+                  resultId:
+                    type: string
+                    examples:
+                      - 'https://example.com/75a0f1dc-3422-4d7f-8c9c-49510b80aa74'
+                  result:
+                    $ref: '#/components/schemas/com.ritense.zakenapi.domain.ZaakResponse'
+
+  schemas:
+    CloudEvent:
+      type: object
+      discriminator: type
+      required:
+        - specversion
+        - id
+        - source
+        - time
+        - type
+        - datacontenttype
+        - data
+      properties:
+        specversion:
+          type: string
+          examples:
+            - '1.0'
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+          examples:
+            - 'valtimo'
+            - 'gzac'
+        time:
+          type: string
+          format: date-time
+          examples:
+            - 2023-11-13T13:44:27.454992212Z
+        type:
+          type: string
+        datacontenttype:
+          type: string
+          const: 'application/json'
+        data:
+          type: object
+          required:
+            - userId
+            - roles
+          properties:
+            userId:
+              type: string
+              examples:
+                - 'support@ritense.com'
+            roles:
+              type: array
+              items:
+                type: string
+                examples:
+                  - 'ROLE_USER'
+                  - 'ROLE_ADMIN'
+          additionalItems: false
+      additionalProperties: false
+
+    'com.ritense.documentenapi.client.DocumentInformatieObject':
+      type: object
+      properties:
+        url:
+          type: string
+          minLength: 1
+          maxLength: 1000
+        identificatie:
+          type: string
+          maxLength: 40
+        bronorganisatie:
+          type: string
+          maxLength: 9
+        creatiedatum:
+          type: string
+          format: date
+        titel:
+          type: string
+          maxLength: 200
+        vertrouwelijkheidaanduiding:
+          $ref: '#/components/schemas/DocumentVertrouwelijkheid'
+        auteur:
+          type: string
+          maxLength: 200
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        formaat:
+          type: string
+          maxLength: 255
+          examples:
+            - application/msword
+        taal:
+          type: string
+          description:
+            'Een ISO 639-2/B taalcode waarin de inhoud van het INFORMATIEOBJECT
+                  is vastgelegd. Voorbeeld: `dut`. Zie: https://www.iso.org/standard/4767.html'
+          maxLength: 3
+          minLength: 3
+          examples:
+            - dut
+        versie:
+          type: integer
+          minimum: 1
+          examples:
+            - 1
+        beginRegistratie:
+          type: string
+          format: date-time
+        bestandsnaam:
+          type: string
+          maxLength: 255
+        bestandsomvang:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          examples:
+            - 9223372
+        link:
+          type: string
+          maxLength: 200
+        beschrijving:
+          type: string
+          maxLength: 1000
+        ontvangstdatum:
+          type: string
+          format: date
+        verzenddatum:
+          type: string
+          format: date
+        indicatieGebruiksrecht:
+          type: boolean
+          nullable: true
+
+    DocumentVertrouwelijkheid:
+      type: string
+      enum:
+        - openbaar
+        - beperkt_openbaar
+        - intern
+        - zaakvertrouwelijk
+        - vertrouwelijk
+        - confidentieel
+        - geheim
+        - zeer_geheim
+      examples:
+        - intern
+
+    DocumentStatus:
+      enum:
+        - in_bewerking
+        - ter_vaststelling
+        - definitief
+        - gearchiveerd
+      examples:
+        - in_bewerking
+
+    DocumentBetalingsindicatie:
+      enum:
+        - nvt
+        - nog_niet
+        - gedeeltelijk
+        - geheel
+      examples:
+        - nog_niet
+
+    ObjectGeometry:
+      type: object
+      properties:
+        type:
+          type: string
+        coordinates:
+          type: array
+          items:
+            type: integer
+
+    ObjectVerlenging:
+      type: object
+      properties:
+        reden:
+          type: string
+        duur:
+          type: string
+
+    ObjectOpschorting:
+      type: object
+      properties:
+        indicatie:
+          type: string
+        reden:
+          type: string
+
+    ObjectRelevanteZaak:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        aardRelatie:
+          type: string
+
+    ObjectKenmerk:
+      type: object
+      properties:
+        kenmerk:
+          type: string
+        bron:
+          type: string
+
+    ObjectBetrokkeneType:
+      enum:
+        - natuurlijk_persoon
+        - niet_natuurlijk_persoon
+        - vestiging
+        - organisatorische_eenheid
+        - medewerker
+      examples:
+        - natuurlijk_persoon
+
+    ObjectZaakRolOmschrijving:
+      enum:
+        - adviseur
+        - behandelaar
+        - belanghebbende
+        - beslisser
+        - initiator
+        - klantcontacter
+        - zaakcoordinator
+        - mede_initiator
+      examples:
+        - beslisser
+
+    ObjectArchiefnominatie:
+      enum:
+        - blijvend_bewaren
+        - vernietigen
+      examples:
+        - blijvend_bewaren
+
+    ObjectArchiefStatus:
+      enum:
+        - nog_te_archiveren
+        - gearchiveerd
+        - gearchiveerd_procestermijn_onbekend
+        - overgedragen
+      examples:
+        - overgedragen
+
+    'com.ritense.documentenapi.client.CreateDocumentResult':
+      type: object
+      properties:
+        url:
+          type: string
+        auteur:
+          type: string
+        bestandsnaam:
+          type: string
+        bestandsomvang:
+          type: integer
+          format: int64
+          minimum: 0
+        beginRegistratie:
+          type: string
+          format: date-time
+
+    com.ritense.objectenapi.client.ObjectWrapper:
+      type: object
+      properties:
+        url:
+          type: string
+        uuid:
+          type: string
+          format: uuid
+        type:
+          type: string
+        record:
+          $ref: '#/components/schemas/com.ritense.objectenapi.client.ObjectRecord'
+
+    'com.ritense.objectenapi.client.ObjectRecord':
+      type: object
+      properties:
+        index:
+          type: integer
+          minimum: 0
+        typeVersion:
+          type: integer
+          minimum: 0
+        data:
+          type: object
+        geometry:
+          $ref: '#/components/schemas/ObjectGeometry'
+        startAt:
+          type: string
+          format: date
+        endAt:
+          type: string
+          format: date
+        registrationAt:
+          type: string
+          format: date
+        correctionFor:
+          type: string
+        correctedBy:
+          type: string
+
+    'com.ritense.zakenapi.client.LinkDocumentResult':
+      type: object
+      properties:
+        url:
+          type: string
+        uuid:
+          type: string
+          format: uuid
+        informatieobject:
+          type: string
+        zaak:
+          type: string
+        aardRelatieWeergave:
+          type: string
+        titel:
+          type: string
+        beschrijving:
+          type: string
+        registratiedatum:
+          type: string
+          format: date-time
+
+    'com.ritense.zakenapi.domain.CreateZaakResponse':
+      type: object
+      required:
+        - url
+        - uuid
+        - bronorganisatie
+        - zaaktype
+        - verantwoordelijkeOrganisatie
+        - startdatum
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        identificatie:
+          type: string
+        bronorganisatie:
+          type: string
+        omschrijving:
+          type: string
+        toelichting:
+          type: string
+        zaaktype:
+          type: string
+          format: uri
+        registratiedatum:
+          type: string
+          format: date
+        verantwoordelijkeOrganisatie:
+          type: string
+        startDatum:
+          type: string
+          format: date
+        einddatum:
+          type: string
+          format: date
+        einddatumGepland:
+          type: string
+          format: date
+        uiterlijkeEinddatumAfdoening:
+          type: string
+          format: date
+        publicatiedatum:
+          type: string
+          format: date
+        communicatiekanaal:
+          type: string
+          format: uri
+        productenOfDiensten:
+          type: array
+          items:
+            type: string
+            format: uri
+        vertrouwelijkheidaanduiding:
+          $ref: '#/components/schemas/DocumentVertrouwelijkheid'
+        betalingsindicatie:
+          $ref: '#/components/schemas/DocumentBetalingsindicatie'
+        betalingsindicatieWeergave:
+          type: string
+        laatsteBetaaldatum:
+          type: string
+          format: date
+        zaakgeometrie:
+          $ref: '#/components/schemas/ObjectGeometry'
+        verlenging:
+          $ref: '#/components/schemas/ObjectVerlenging'
+        opschorting:
+          $ref: '#/components/schemas/ObjectOpschorting'
+        selectielijstklasse:
+          type: string
+          format: uri
+        hoofdzaak:
+          type: string
+          format: uri
+        deelzaken:
+          type: array
+          items:
+            type: string
+            format: uri
+        relevanteAndereZaken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectRelevanteZaak'
+        eigenschappen:
+          type: array
+          items:
+            type: string
+            format: uri
+        status:
+          type: string
+        kenmerken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectKenmerk'
+        archiefnominatie:
+          $ref: '#/components/schemas/ObjectArchiefnominatie'
+        archiefstatus:
+          $ref: '#/components/schemas/ObjectArchiefStatus'
+        archiefactiedatum:
+          type: string
+          format: date
+        resultaat:
+          type: string
+          format: uri
+        opdrachtgevendeOrganisatie:
+          type: string
+
+    'com.ritense.zakenapi.domain.ZaakInformatieObject':
+      type: object
+      required:
+        - url
+        - uuid
+        - informatieobject
+        - zaak
+        - aardRelatieWeergave
+        - registratiedatum
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        informatieobject:
+          type: string
+          format: uri
+        zaak:
+          type: string
+          format: uri
+        aardRelatieWeergave:
+          type: string
+        titel:
+          type: string
+        beschrijving:
+          type: string
+        registratiedatum:
+          type: string
+          format: date-time
+        vernietigingsdatum:
+          type: string
+          format: date-time
+        status:
+          type: string
+          format: uri
+
+    'com.ritense.zakenapi.domain.ZaakObject':
+      type: object
+      required:
+        - url
+        - uuid
+        - zaak
+        - object
+        - objectType
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        object:
+          type: string
+          format: uri
+        objectType:
+          type: string
+        objectTypeOverige:
+          type: string
+        relatieomschrijving:
+          type: string
+
+    'com.ritense.zakenapi.domain.ZaakopschortingResponse':
+      type: object
+      required:
+        - url
+        - uuid
+        - identificatie
+        - bronorganisatie
+        - omschrijving
+        - toelichting
+        - zaaktype
+        - registratiedatum
+        - verantwoordelijkeOrganisatie
+        - startdatum
+        - communicatiekanaal
+        - productOfDiensten
+        - vertrouwelijkheidaanduiding
+        - betalingsindicatie
+        - betalingsindicatieWeergave
+        - selectielijstklasse
+        - deelzaken
+        - relevanteAndereZaken
+        - eigenschappen
+        - kenmerken
+        - archiefstatus
+        - opdrachtgevendeOrganisatie
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        identificatie:
+          type: string
+        bronorganisatie:
+          type: string
+        omschrijving:
+          type: string
+        toelichting:
+          type: string
+        zaaktype:
+          type: string
+        registratiedatum:
+          type: string
+        verantwoordelijkeOrganisatie:
+          type: string
+        startdatum:
+          type: string
+        einddatum:
+          type: string
+        einddatumGepland:
+          type: string
+        uiterlijkeEinddatumAfdoening:
+          type: string
+        publicatiedatum:
+          type: string
+        communicatiekanaal:
+          type: string
+        productenOfDiensten:
+          type: array
+          items:
+            type: string
+        vertrouwelijkheidaanduiding:
+          type: string
+        betalingsindicatie:
+          type: string
+        betalingsindicatieWeergave:
+          type: string
+        laatsteBetaaldatum:
+          type: string
+        zaakgeometrie:
+          type: string
+        verlenging:
+          $ref: '#/components/schemas/ObjectVerlenging'
+        opschorting:
+          $ref: '#/components/schemas/ObjectOpschorting'
+        selectielijstklasse:
+          type: string
+        hoofdzaak:
+          type: string
+        deelzaken:
+          type: string
+        relevanteAndereZaken:
+          type: string
+        eigenschappen:
+          type: string
+        status:
+          type: string
+        kenmerken:
+          type: array
+          items:
+            type: string
+        archiefnominatie:
+          type: string
+        archiefstatus:
+          type: string
+        archiefactiedatum:
+          type: string
+        resultaat:
+          type: string
+        opdrachtgevendeOrganisatie:
+          type: string
+
+    'com.ritense.zakenapi.domain.CreateZaakResultaatResponse':
+      type: object
+      required:
+        - url
+        - uuid
+        - zaak
+        - resultaattype
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        resultaattype:
+          type: string
+          format: uri
+        toelichting:
+          type: string
+
+    'com.ritense.zakenapi.domain.rol.Rol':
+      type: object
+      required:
+        - zaak
+        - betrokkeneType
+        - roltype
+        - roltoelichting
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        betrokkene:
+          type: string
+          format: uri
+        betrokkeneType:
+          $ref: '#/components/schemas/ObjectBetrokkeneType'
+        roltype:
+          type: string
+          format: uri
+        omschrijving:
+          type: string
+        omschrijvingGeneriek:
+          $ref: '#/components/schemas/ObjectZaakRolOmschrijving'
+        roltoelichting:
+          type: string
+        registratiedatum:
+          type: string
+          format: date-time
+
+    'com.ritense.zakenapi.domain.CreateZaakStatusResponse':
+      type: object
+      required:
+        - url
+        - uuid
+        - zaak
+        - statustype
+        - datumStatusGezet
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        zaak:
+          type: string
+          format: uri
+        statustype:
+          type: string
+          format: uri
+        datumStatusGezet:
+          type: string
+          format: date-time
+        statustoelichting:
+          type: string
+
+    'com.ritense.zakenapi.domain.ZaakResponse':
+      type: object
+      required:
+        - url
+        - uuid
+        - bronorganisatie
+        - zaaktype
+        - verantwoordelijkeOrganisatie
+        - startDatum
+      properties:
+        url:
+          type: string
+          format: uri
+        uuid:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        identificatie:
+          type: string
+        bronorganisatie:
+          type: string
+        omschrijving:
+          type: string
+        toelichting:
+          type: string
+        zaaktype:
+          type: string
+          format: uri
+        registratiedatum:
+          type: string
+          format: date
+        verantwoordelijkeOrganisatie:
+          type: string
+        startDatum:
+          type: string
+          format: date
+        einddatum:
+          type: string
+          format: date
+        einddatumGepland:
+          type: string
+          format: date
+        uiterlijkeEinddatumAfdoening:
+          type: string
+          format: date
+        publicatiedatum:
+          type: string
+          format: date
+        communicatiekanaal:
+          type: string
+          format: uri
+        productenOfDiensten:
+          type: array
+          items:
+            type: string
+            format: uri
+        vertrouwelijkheidaanduiding:
+          $ref: '#/components/schemas/DocumentVertrouwelijkheid'
+        betalingsindicatie:
+          $ref: '#/components/schemas/DocumentBetalingsindicatie'
+        betalingsindicatieWeergave:
+          type: string
+        laatsteBetaaldatum:
+          type: string
+          format: date
+        zaakgeometrie:
+          $ref: '#/components/schemas/ObjectGeometry'
+        verlenging:
+          $ref: '#/components/schemas/ObjectVerlenging'
+        opschorting:
+          $ref: '#/components/schemas/ObjectOpschorting'
+        selectielijstklasse:
+          type: string
+          format: uri
+        hoofdzaak:
+          type: string
+          format: uri
+        deelzaken:
+          type: array
+          items:
+            type: string
+            format: uri
+        relevanteAndereZaken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectRelevanteZaak'
+        eigenschappen:
+          type: array
+          items:
+            type: string
+            format: uri
+        rollen:
+          type: array
+          items:
+            type: string
+            format: uri
+        status:
+          type: string
+        zaakinformatieobjecten:
+          type: array
+          items:
+            type: string
+            format: uri
+        zaakobjecten:
+          type: array
+          items:
+            type: string
+            format: uri
+        kenmerken:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectKenmerk'
+        archiefnominatie:
+          $ref: '#/components/schemas/ObjectArchiefnominatie'
+        archiefstatus:
+          $ref: '#/components/schemas/ObjectArchiefStatus'
+        archiefactiedatum:
+          type: string
+          format: date
+        resultaat:
+          type: string
+          format: uri
+        opdrachtgevendeOrganisatie:
+          type: string
+        processobjectaard:
+          type: string
+        resultaattoelichting:
+          type: string
+        startdatumBewaartermijn:
+          type: string
+          format: date
+
+    'com.ritense.valtimo.formflow.event.FormFlowStepCompletedResult':
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '497f6eca-6276-4993-bfeb-53cbbbba6f08'
+        instanceId:
+          type: string
+          format: uuid
+        stepKey:
+          type: string
+          examples:
+            - 'start'
+        order:
+          type: integer
+          minimum: 0
+        submissionData:
+          type: object
+
+    'com.ritense.document.domain.impl.JsonSchemaDocument':
+      type: object
+      required:
+        - id
+        - content
+        - version
+        - createdOn
+        - sequence
+        - definitionId
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - 'dd9b0a31-09f8-43a9-84f7-04999468f58d'
+        content:
+          type: object
+        version:
+          type: string
+          examples:
+            - '37268335dd6931045bdcdf92623ff819a64244b53d0e746d438797349d4da578'
+        createdOn:
+          type: string
+          format: date-time
+        modifiedOn:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+          examples:
+            - 'support@ritense.com'
+        sequence:
+          type: integer
+          minimum: 1
+        relatedFiles:
+          type: array
+          items:
+            type: object
+            properties:
+              fileId:
+                type: string
+                format: uuid
+              fileName:
+                type: string
+                examples:
+                  - 'my-file.pdf'
+              sizeInBytes:
+                type: integer
+                minimum: 0
+              createdOn:
+                type: string
+                format: date-time
+              createdBy:
+                type: string
+                examples:
+                  - 'support@ritense.com'
+        definitionId:
+          type: object
+          properties:
+            name:
+              type: string
+              examples:
+                - "my-case"
+            version:
+              type: integer
+              minimum: 1
+        relations:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              relationType:
+                type: string
+                enum:
+                  - PREVIOUS
+                  - NEXT
+                  - SUPPORTING
+
+    'com.ritense.document.domain.Note':
+      type: object
+      required:
+        - id
+        - content
+        - version
+        - createdOn
+        - sequence
+        - definitionId
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '721b362b-8a02-44fb-8d41-647c99ea3541'
+        createdByUserId:
+          type: string
+          examples:
+            - 'support@ritense.com'
+        createdByUserFullName:
+          type: string
+          examples:
+            - 'Support'
+        createdDate:
+          type: string
+          format: date-time
+        content:
+          type: string
+          examples:
+            - 'My note'
+        documentId:
+          type: string
+          format: uuid
+
+    'com.ritense.valtimo.camunda.domain.CamundaTask':
+      type: object
+      required:
+        - id
+        - revision
+        - priority
+        - identityLinks
+        - suspensionState
+        - variableInstances
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        execution:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        identityLinks:
+          type: array
+          items:
+            ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaIdentityLink'
+        caseExecutionId:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        caseInstanceId:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        name:
+          type: string
+          examples:
+            - 'Sign document'
+        parentTask:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+        description:
+          type: string
+          examples:
+            - 'Description'
+        taskDefinitionKey:
+          type: string
+          examples:
+            - 'sign-document'
+        owner:
+          type: string
+        assignee:
+          type: string
+          examples:
+            - 'support@ritense.com'
+        delegationState:
+          type: string
+          enum:
+            - PENDING
+            - RESOLVED
+        priority:
+          type: integer
+        createTime:
+          type: string
+          format: date-time
+        lastUpdated:
+          type: string
+          format: date-time
+        dueDate:
+          type: string
+          format: date-time
+        followUpDate:
+          type: string
+          format: date-time
+        suspensionState:
+          type: integer
+        tenantId:
+          type: string
+        variableInstances:
+          type: array
+          items:
+            ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaVariableInstance'
+
+    'com.ritense.valtimo.camunda.domain.CamundaExecution':
+      type: object
+      required:
+        - id
+        - revision
+        - active
+        - concurrent
+        - scope
+        - eventScope
+        - suspensionState
+        - cachedEntityState
+        - sequenceCounter
+        - variableInstances
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        rootProcessInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        businessKey:
+          type: string
+        parent:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        superExecution:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        caseInstanceId:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        activityId:
+          type: string
+        activityInstanceId:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        active:
+          type: boolean
+        concurrent:
+          type: boolean
+        scope:
+          type: boolean
+        eventScope:
+          type: boolean
+        suspensionState:
+          type: integer
+        cachedEntityState:
+          type: integer
+        sequenceCounter:
+          type: integer
+          format: int64
+        tenantId:
+          type: string
+        variableInstances:
+          type: array
+          items:
+            ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaVariableInstance'
+
+    'com.ritense.valtimo.camunda.domain.CamundaProcessDefinition':
+      type: object
+      required:
+        - id
+        - key
+        - version
+        - isStartableInTaskList
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        category:
+          type: string
+        name:
+          type: string
+        key:
+          type: string
+        version:
+          type: integer
+        deploymentId:
+          type: string
+        resourceName:
+          type: string
+        diagramResourceName:
+          type: string
+        hasStartFormKey:
+          type: boolean
+        suspensionState:
+          type: integer
+        tenantId:
+          type: string
+        versionTag:
+          type: string
+        historyTimeToLive:
+          type: integer
+        isStartableInTaskList:
+          type: boolean
+
+    'com.ritense.valtimo.camunda.domain.CamundaIdentityLink':
+      type: object
+      required:
+        - id
+        - revision
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        groupId:
+          type: string
+        type:
+          type: string
+        userId:
+          type: string
+        task:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        tenantId:
+          type: string
+
+    'com.ritense.valtimo.camunda.domain.CamundaVariableInstance':
+      type: object
+      required:
+        - id
+        - revision
+        - serializerName
+        - name
+        - sequenceCounter
+        - isConcurrentLocal
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        serializerName:
+          type: string
+        name:
+          type: string
+        execution:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processInstance:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaExecution'
+        processDefinition:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaProcessDefinition'
+        caseExecutionId:
+          type: string
+        caseInstanceId:
+          type: string
+        task:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaTask'
+        batchId:
+          type: string
+        byteArrayValue:
+          ref: '#/components/schemas/com.ritense.valtimo.camunda.domain.CamundaByteArray'
+        doubleValue:
+          type: number
+          format: double
+        longValue:
+          type: integer
+          format: int64
+        textValue:
+          type: string
+        textValue2:
+          type: string
+        variableScopeId:
+          type: string
+        sequenceCounter:
+          type: integer
+          format: int64
+        isConcurrentLocal:
+          type: boolean
+        tenantId:
+          type: string
+
+    'com.ritense.valtimo.camunda.domain.CamundaByteArray':
+      type: object
+      required:
+        - id
+        - revision
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          examples:
+            - '85d4b338-795e-11ee-99a0-4eda5230440f'
+        revision:
+          type: integer
+          minimum: 0
+        name:
+          type: string
+        deploymentId:
+          type: string
+        bytes:
+          type: string
+          format: byte
+        generated:
+          type: boolean
+        tenantId:
+          type: string
+        type:
+          type: integer
+        createTime:
+          type: string
+          format: date-time
+        rootProcessInstanceId:
+          type: string
+        removalTime:
+          type: string
+          format: date-time
+
+defaultContentType: application/json
